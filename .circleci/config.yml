@@ -65,13 +65,8 @@ workflows:
       - deploy:
           matrix:
             parameters:
+              # variant: [minimum]
               variant: [minimum, medium, maximum, maximum-cuda]
           filters:
             branches:
-              only: master
-  build-pull-request:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore: master
+              only: dockertest
