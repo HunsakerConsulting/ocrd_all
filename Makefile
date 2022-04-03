@@ -155,16 +155,11 @@ deinit:
 
 # Get Python modules.
 
-$(BIN)/pip: $(ACTIVATE_VENV)
-	. $(ACTIVATE_VENV) && $(SEMPIP) pip install --upgrade pip setuptools
+$(BIN)/pip $(BIN)/wheel &: $(ACTIVATE_VENV)
+	. $(ACTIVATE_VENV) && pip install --upgrade pip setuptools wheel
 
 $(ACTIVATE_VENV) $(VIRTUAL_ENV):
 	$(SEMPIP) $(PYTHON) -m venv $(VIRTUAL_ENV)
-
-.PHONY: wheel
-wheel: $(BIN)/wheel
-$(BIN)/wheel: | $(ACTIVATE_VENV)
-	. $(ACTIVATE_VENV) && $(SEMPIP) pip install --force-reinstall $(PIP_OPTIONS_E) wheel
 
 # avoid making this .PHONY so it does not have to be repeated
 $(SHARE)/numpy: | $(ACTIVATE_VENV) $(SHARE)
@@ -690,8 +685,7 @@ $(SHARE):
 	@mkdir -p "$@"
 
 # At last, add venv dependency (must not become first):
-$(OCRD_EXECUTABLES) $(BIN)/wheel: | $(BIN)/pip
-$(OCRD_EXECUTABLES): | $(BIN)/wheel
+$(OCRD_EXECUTABLES): | $(BIN)/pip $(BIN)/wheel
 # Also, add core dependency (but in a non-circular way):
 $(filter-out $(BIN)/ocrd,$(OCRD_EXECUTABLES)): $(BIN)/ocrd
 
