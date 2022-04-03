@@ -162,7 +162,7 @@ deinit:
 
 # Get Python modules.
 
-$(BIN)/pip $(BIN)/wheel &: $(ACTIVATE_VENV)
+$(BIN)/pip $(BIN)/wheel &: | $(ACTIVATE_VENV)
 	. $(ACTIVATE_VENV) && pip install --upgrade pip setuptools wheel
 
 %/bin/activate:
