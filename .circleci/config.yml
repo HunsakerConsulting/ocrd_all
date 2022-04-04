@@ -38,7 +38,7 @@ jobs:
           command: make docker-<< parameters.variant >>-git DOCKER_PARALLEL=-j4
       - run:
           name: Alias Docker images
-          command: docker tag ocrd/all:<< parameters.variant >>-git ocrd/all:<< parameters.variant >>
+          command: docker tag ocrd/all:test-<< parameters.variant >>-git ocrd/all:test-<< parameters.variant >>
       - run:
           name: Login to Docker Hub
           command: echo "$DOCKERHUB_PASS" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
@@ -46,8 +46,8 @@ jobs:
           name: Push images to Docker Hub
           no_output_timeout: 2.5h
           command: |
-            docker push ocrd/all:<< parameters.variant >>
-            docker push ocrd/all:<< parameters.variant >>-git
+            docker push ocrd/all:test-<< parameters.variant >>
+            docker push ocrd/all:test-<< parameters.variant >>-git
       - when:
           condition:
             equal: [ maximum, << parameters.variant >> ]

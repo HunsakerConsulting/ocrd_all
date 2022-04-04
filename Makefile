@@ -888,7 +888,7 @@ docker%: Dockerfile $(DOCKER_MODULES)
 	--build-arg PARALLEL="$(DOCKER_PARALLEL)" \
 	--build-arg PYTHON="$(PYTHON)" \
 	--network=host \
-	-t $(DOCKER_TAG):$(or $(*:-%=%),latest) .
+	-t $(DOCKER_TAG):test-$(or $(*:-%=%),latest) .
 
 docker: DOCKER_MODULES ?= $(OCRD_MODULES)
 docker: DOCKER_PARALLEL ?= -j1
