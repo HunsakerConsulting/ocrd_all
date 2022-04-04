@@ -168,6 +168,7 @@ $(BIN)/pip $(BIN)/wheel &: | $(ACTIVATE_VENV)
 %/bin/activate:
 	$(PYTHON) -m venv $(subst /bin/activate,,$@)
 	. $@ && pip install --upgrade pip setuptools wheel
+	@echo finished rule for $@
 
 # avoid making this .PHONY so it does not have to be repeated
 $(SHARE)/numpy: | $(ACTIVATE_VENV) $(SHARE)
