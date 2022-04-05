@@ -340,7 +340,7 @@ clean: clean-olena
 .PHONY: clean-olena
 clean-olena:
 	test ! -f ocrd_olena/Makefile || \
-	$(MAKE) -C ocrd_olena clean-olena BUILD_DIR=$(VIRTUAL_ENV)/build/ocrd_olena
+	$(MAKE) -C ocrd_olena clean-olena BUILD_DIR=$(VIRTUAL_ENV)/build/ocrd_olena -j2
 
 ifneq ($(findstring dinglehopper, $(OCRD_MODULES)),)
 OCRD_EXECUTABLES += $(BIN)/ocrd-dinglehopper
@@ -774,7 +774,7 @@ TESSERACT_CONFIG ?= --disable-openmp --disable-shared CXXFLAGS="-g -O2 -fPIC"
 $(BIN)/tesseract: tesseract/Makefile.in
 	mkdir -p $(VIRTUAL_ENV)/build/tesseract
 	cd $(VIRTUAL_ENV)/build/tesseract && $(CURDIR)/tesseract/configure --prefix="$(VIRTUAL_ENV)" $(TESSERACT_CONFIG)
-	cd $(VIRTUAL_ENV)/build/tesseract && $(MAKE) install
+	cd $(VIRTUAL_ENV)/build/tesseract && $(MAKE) install -j4
 
 # Build and install Tesseract training tools.
 
