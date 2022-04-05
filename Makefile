@@ -63,7 +63,7 @@ export PKG_CONFIG_PATH
 SHELL = /bin/bash
 
 OCRD_EXECUTABLES = $(BIN)/ocrd # add more CLIs below
-CUSTOM_DEPS = unzip wget python3-venv parallel git less # add more packages for deps-ubuntu below (or modules as preqrequisites)
+CUSTOM_DEPS = unzip wget python3.7-venv parallel git less # add more packages for deps-ubuntu below (or modules as preqrequisites)
 
 DEFAULT_DISABLED_MODULES = cor-asv-fst opencv-python ocrd_ocropy
 ifeq ($(PYTHON_VERSION),3.10)
